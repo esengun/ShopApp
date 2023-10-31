@@ -8,7 +8,12 @@ namespace ShopApp.WebUI.Controllers
         // localhost:5000/home/index
         public IActionResult Index()
         {
-            return View();
+            int hour = DateTime.Now.Hour;
+
+            ViewBag.Greeting = hour > 12 ? "Good afternoon" : "Good morning";
+            ViewBag.UserName = "Test user";
+
+			return View();
         }
 
         // localhost:5000/home/about
