@@ -3,13 +3,9 @@
 @{
 }*@
 
+@section Categories
+	{
+	@await Component.InvokeAsync("Categories")
+}
 
-<div class="row">
-	<div class="col-md-3">
-		@*Categories will be here*@
-		@await Component.InvokeAsync("Categories")
-	</div>
-	<div class="col-md-9">
-		About
-	</div>
-</div>
+About

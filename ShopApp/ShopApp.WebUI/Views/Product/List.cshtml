@@ -4,37 +4,28 @@
 }*@
 @model ProductViewModel
 
-@{ 
-	//Use this if you do not want to use Layout desing
-	Layout = "_Layout2";
-}
-
 @{
 	var popularClass = Model.Products.Count() > 1 ? "popular" : ""; // applies to a style
 	var products = Model.Products; // declaring variables to be used in html
 }
 
-<div class="row">
-	<div class="col-md-3">
-		@*Categories will be here*@
-		@await Component.InvokeAsync("Categories")
-	</div>
-	<div class="col-md-9">
-		@*Products will be here*@
-		@if (products.Count == 0)
+@section Categories
+{
+	@await Component.InvokeAsync("Categories")
+}
+
+@if (products.Count == 0)
+{
+	@await Html.PartialAsync("_noproduct")
+}
+else
+{
+	<div class="row">
+		@foreach (var product in products)
 		{
-			@await Html.PartialAsync("_noproduct")
-		}
-		else
-		{
-			<div class="row">
-				@foreach (var product in products)
-				{
-					<div class="col-md-3">
-						@await Html.PartialAsync("_product", product)
-					</div>
-				}
+			<div class="col-md-3">
+				@await Html.PartialAsync("_product", product)
 			</div>
 		}
 	</div>
-</div>
+}
