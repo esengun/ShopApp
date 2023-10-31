@@ -8,7 +8,19 @@ namespace ShopApp.WebUI.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+			// Methods to send data to view:
+			// ViewBag
+			// Model
+			// ViewData
+
+			var product = new Product { Name = "Iphone X", Price = 2000, Description = "IOS" };
+
+            ViewData["Category"] = "Smartphones";
+            ViewData["Product"] = product;
+
+			ViewBag.Products = product;
+
+			return View(product);
         }
 
         // localhost:5000/product/list
