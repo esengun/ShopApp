@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.WebUI.Models;
+using ShopApp.WebUI.ViewModels;
 using ShopApp.WebUI.Views.Product;
 
 namespace ShopApp.WebUI.Controllers
@@ -24,9 +25,26 @@ namespace ShopApp.WebUI.Controllers
         }
 
         // localhost:5000/product/list
-        public string List()
+        public IActionResult List()
         {
-            return "product/list";
+            var products = new List<Product>(){
+                new Product { Name = "samsung s6", Price = 2000, Description = "Android" },
+				new Product { Name = "samsung s7", Price = 3000, Description = "Android" }
+            };
+
+            var category = new Category
+            {
+                Name = "Smartphones",
+                Description = "Android smartphones"
+            };
+
+            var productViewModel = new ProductViewModel()
+			{
+                Category = category,
+                Products = products
+            };
+            
+			return View(productViewModel);
         }
 
         // localhost:5000/product/details/id?
