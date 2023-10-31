@@ -1,0 +1,13 @@
+﻿@*@page
+@model ShopApp.WebUI.Views.Shared.ViewComponents.Categories.DefaultModel
+@{
+}*@
+
+@model List<Category>
+
+<div class="list-group">
+	@foreach (var category in Model)
+	{
+		<a href="#" class="list-group-item list-group-item-action">@category.Name</a>
+	}
+</div>

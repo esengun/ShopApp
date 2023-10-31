@@ -34,15 +34,9 @@ namespace ShopApp.WebUI.Controllers
 				new Product { Name = "samsung s9", Price = 5000, Description = "Android" }
             };
 
-            var category = new Category
-            {
-                Name = "Smartphones",
-                Description = "Android smartphones"
-            };
 
             var productViewModel = new ProductViewModel()
 			{
-                Category = category,
                 Products = products
             };
             
