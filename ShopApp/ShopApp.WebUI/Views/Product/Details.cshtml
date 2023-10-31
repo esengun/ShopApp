@@ -1,7 +1,8 @@
 ﻿@*@page
-@model ShopApp.WebUI.Views.Product.DetailsModel
+@model ShopApp.WebUI.Models.Product
 @{
 }*@
+@model ShopApp.WebUI.Models.Product
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,8 @@
 	<title>Product</title>
 </head>
 <body>
-	product/details
+	<p>product name: @Model.Name</p>
+	<p>product price: @Model.Price</p>
+	<p>product description: @Model.Description</p>
 </body>
 </html>
