@@ -4,6 +4,12 @@
 }*@
 @model ProductViewModel
 
+@{
+	var popularClass = Model.Products.Count() > 1 ? "popular" : ""; // applies to a style
+	var products = Model; // declaring variables to be used in html
+	var categoryName = Model.Category.Name;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,19 +17,45 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Product</title>
+	<style>
+		.popular{
+			color:green;
+			font-weight: 700;
+		}
+	</style>
 </head>
 <body>
-	<h1>@Model.Category.Name</h1>
-	<h2>@Model.Category.Description</h2>
-	<div>
-		<p>@Model.Products[0].Name</p>
-		<p>@Model.Products[0].Price</p>
-		<p>@Model.Products[0].Description</p>
-	</div>
-	<div>
-		<p>@Model.Products[1].Name</p>
-		<p>@Model.Products[1].Price</p>
-		<p>@Model.Products[1].Description</p>
-	</div>
+	<h1 class="popular">@categoryName</h1>
+	<h2>@products.Category.Description</h2>
+
+	@if (products.Products.Count == 0)
+	{
+		<p>No product</p>
+	}
+	else
+	{
+		<ul>
+			@foreach (var product in products.Products)
+			{
+				@if (product.IsApproved)
+				{
+					<li>
+						<div>
+							<p>@product.Name</p>
+							<p>@product.Price</p>
+							<p>@product.Description</p>
+						</div>
+					</li>
+				}
+				else
+				{
+					<li style="background-color:red;">
+						Product is not for sale.
+					</li>
+				}
+			}
+		</ul>
+	}
+	
 </body>
 </html>

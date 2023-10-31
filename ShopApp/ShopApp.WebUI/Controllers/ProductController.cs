@@ -29,7 +29,9 @@ namespace ShopApp.WebUI.Controllers
         {
             var products = new List<Product>(){
                 new Product { Name = "samsung s6", Price = 2000, Description = "Android" },
-				new Product { Name = "samsung s7", Price = 3000, Description = "Android" }
+                new Product { Name = "samsung s7", Price = 3000, Description = "Android", IsApproved = true },
+                new Product { Name = "samsung s8", Price = 4000, Description = "Android", IsApproved = true },
+				new Product { Name = "samsung s9", Price = 5000, Description = "Android" }
             };
 
             var category = new Category
