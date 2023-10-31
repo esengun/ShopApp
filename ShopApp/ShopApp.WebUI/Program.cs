@@ -21,14 +21,22 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+//app.MapRazorPages();
 
-app.MapGet("/", () => "Hello World!");
+//app.MapGet("/", () => "Hello World!");
 
 
 // This maps the controllers that fits to pattern automatically
+// this supports urls like
+// localhost:5000/
+// localhost:5000/home
+// localhost:5000/home/index
+// localhost:5000/product
+// localhost:5000/product/details
+// localhost:5000/product/details/2
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action}/{id?}"); // this supports urls like localhost:5000/category/list/2 or localhost:5000/category/list
+    pattern: "{controller=Home}/{action=Index}/{id?}"); 
 
 app.Run();

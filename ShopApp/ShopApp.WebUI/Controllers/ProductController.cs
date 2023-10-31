@@ -4,9 +4,14 @@ namespace ShopApp.WebUI.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        public string Index()
         {
-            return View();
+            return "product/index";
         }
 
         // localhost:5000/product/list
@@ -15,10 +20,10 @@ namespace ShopApp.WebUI.Controllers
             return "product/list";
         }
 
-        // localhost:5000/product/details
-        public string Details()
+        // localhost:5000/product/details/id?
+        public string Details(int id)
         {
-            return "product/details";
+            return "product/details/"+id;
         }
     }
 }
