@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -21,5 +22,13 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapGet("/", () => "Hello World!");
+
+
+// This maps the controllers that fits to pattern automatically
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action}/{id?}"); // this supports urls like localhost:5000/category/list/2 or localhost:5000/category/list
 
 app.Run();
