@@ -66,15 +66,24 @@ namespace ShopApp.WebUI.Controllers
 			return View(productViewModel);
         }
 
-        // localhost:5000/product/details/id?
-        public IActionResult Details(int id)
+		[HttpGet]
+		// localhost:5000/product/details/id?
+		public IActionResult Details(int id)
         {
             return View(ProductRepository.GetProductById(id));
         }
 
-		public IActionResult Create()
+        [HttpGet] // If you do not specify, it will be HttpGet as default
+		public IActionResult Create() // only responsible for bringing form page
 		{
 			return View();
+		}
+
+        [HttpPost]
+		public IActionResult Create(Product p) 
+		{
+            ProductRepository.AddProduct(p);
+			return RedirectToAction("List");
 		}
 	}
 }
