@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopApp.Data.Abstract
 {
-	public interface IProductRepository : IRepository<Product>
+	public interface IOrderRepository : IRepository<Order>
 	{
-		List<Product> GetPopularProducts();
 	}
 }
