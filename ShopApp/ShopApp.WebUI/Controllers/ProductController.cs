@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopApp.WebUI.Data;
 using ShopApp.WebUI.Models;
 using ShopApp.WebUI.ViewModels;
@@ -76,6 +77,7 @@ namespace ShopApp.WebUI.Controllers
         [HttpGet] // If you do not specify, it will be HttpGet as default
 		public IActionResult Create() // only responsible for bringing form page
 		{
+            ViewBag.Categories = new SelectList(CategoryRepository.Categories, "CategoryId", "Name");
 			return View();
 		}
 
