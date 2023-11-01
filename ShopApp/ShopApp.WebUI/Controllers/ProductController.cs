@@ -78,14 +78,19 @@ namespace ShopApp.WebUI.Controllers
 		public IActionResult Create() // only responsible for bringing form page
 		{
             ViewBag.Categories = new SelectList(CategoryRepository.Categories, "CategoryId", "Name");
-			return View();
+			return View(new Product());
 		}
 
         [HttpPost]
 		public IActionResult Create(Product p) 
 		{
-            ProductRepository.AddProduct(p);
-			return RedirectToAction("List");
+            if (ModelState.IsValid)
+            {
+				ProductRepository.AddProduct(p);
+				return RedirectToAction("List");
+			}
+			ViewBag.Categories = new SelectList(CategoryRepository.Categories, "CategoryId", "Name");
+			return View(p); // if inputs are invalid, redirect user to create page with the same inputs
 		}
 
 		[HttpGet] 
@@ -99,6 +104,13 @@ namespace ShopApp.WebUI.Controllers
 		public IActionResult Edit(Product p)
 		{
 			ProductRepository.EditProduct(p);
+			return RedirectToAction("List");
+		}
+
+		[HttpPost]
+		public IActionResult Delete(int ProductId)
+		{
+			ProductRepository.DeleteProduct(ProductId);
 			return RedirectToAction("List");
 		}
 	}
