@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace ShopApp.Data.Concrete.EFCore
 {
-	public class EfCoreProductRepository : IProductRepository
+	public class EfCoreCategoryRepository : ICategoryRepository
 	{
 		private ShopContext db = new ShopContext();
 
-		public void Create(Product entity)
+		public void Create(Category entity)
 		{
-			db.Products.Add(entity);
+			db.Categories.Add(entity);
 			db.SaveChanges();
 		}
 
@@ -23,22 +23,22 @@ namespace ShopApp.Data.Concrete.EFCore
 			throw new NotImplementedException();
 		}
 
-		public List<Product> GetAll()
+		public List<Category> GetAll()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Product GetById(int id)
+		public Category GetById(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public List<Product> GetPopularProducts()
+		public List<Product> GetPopularCategories()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Update(Product entity)
+		public void Update(Category entity)
 		{
 			throw new NotImplementedException();
 		}
