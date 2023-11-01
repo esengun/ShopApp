@@ -27,7 +27,7 @@ namespace ShopApp.WebUI.Controllers
 
 		// localhost:5000/product/list => all products
 		// localhost:5000/product/list/2 => all products in category with id=2
-		public IActionResult List(int? id)
+		public IActionResult List(int? id, string q)
         {
             // {controller}/{action}/{id?}
             // product/list/3
@@ -36,15 +36,26 @@ namespace ShopApp.WebUI.Controllers
             // RouteData.Values["action"] => list
             // RouteData.Values["id"] => 3
 
-            //Console.WriteLine(RouteData.Values["controller"]);
-            //Console.WriteLine(RouteData.Values["action"]);
-            //Console.WriteLine(RouteData.Values["id"]);
+            // Console.WriteLine(RouteData.Values["controller"]);
+            // Console.WriteLine(RouteData.Values["action"]);
+            // Console.WriteLine(RouteData.Values["id"]);
+
+            // q will be part of url if provided
+            // Console.WriteLine(q);
+            // Alternative with QueryString:
+            // Console.WriteLine(HttpContext.Request.Query["q"].ToString());
 
 			var products = ProductRepository.Products;
 
             if(id != null)
             {
                 products =  products.Where(p => p.CategoryId == id).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(q))
+            {
+                products = products.Where(p => p.Name.ToLower().Contains(q.ToLower()) 
+                || p.Description.ToLower().Contains(q.ToLower())).ToList();
             }
 
             var productViewModel = new ProductViewModel()

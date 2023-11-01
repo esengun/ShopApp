@@ -16,5 +16,11 @@
 				<a href="#" class="nav-link">Link 3</a>
 			</li>
 		</ul>
+
+		<form action="/product/list" class="d-flex">
+			@*name="q" so the controller list method will take a parameter q to get the search value*@
+			<input name="q" class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-light" type="submit">Search</button>
+		</form>
 	</div>
 </div>
