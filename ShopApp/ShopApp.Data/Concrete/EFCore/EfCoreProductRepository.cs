@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopApp.Data.Concrete.MySQL
+namespace ShopApp.Data.Concrete.EFCore
 {
-	public class MySQLCategoryRepository : ICategoryRepository
+	public class EfCoreProductRepository : IProductRepository
 	{
-		public void Create(Category entity)
+		public void Create(Product entity)
 		{
 			throw new NotImplementedException();
 		}
@@ -20,17 +20,22 @@ namespace ShopApp.Data.Concrete.MySQL
 			throw new NotImplementedException();
 		}
 
-		public List<Category> GetAll()
+		public List<Product> GetAll()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Category GetById(int id)
+		public Product GetById(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Update(Category entity)
+		public List<Product> GetPopularProducts()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Update(Product entity)
 		{
 			throw new NotImplementedException();
 		}
