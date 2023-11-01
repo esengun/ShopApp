@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopApp.WebUI.Data;
 using ShopApp.WebUI.Models;
 
 namespace ShopApp.WebUI.ViewComponents
@@ -7,13 +8,7 @@ namespace ShopApp.WebUI.ViewComponents
 	{
 		public IViewComponentResult Invoke()
 		{
-			var categories = new List<Category>(){
-				new Category { Name = "Smartphone", Description = "Android smartphones" },
-				new Category { Name = "Computer", Description = "Computers" },
-				new Category { Name = "Electronic", Description = "Electronics" }
-			};
-
-			return View(categories);
+			return View(CategoryRepository.Categories);
 		}
 	}
 }
