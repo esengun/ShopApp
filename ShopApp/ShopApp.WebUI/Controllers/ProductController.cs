@@ -29,7 +29,18 @@ namespace ShopApp.WebUI.Controllers
 		// localhost:5000/product/list/2 => all products in category with id=2
 		public IActionResult List(int? id)
         {
-            var products = ProductRepository.Products;
+            // {controller}/{action}/{id?}
+            // product/list/3
+            // Alternative way is:
+            // RouteData.Values["controller"] => product
+            // RouteData.Values["action"] => list
+            // RouteData.Values["id"] => 3
+
+            //Console.WriteLine(RouteData.Values["controller"]);
+            //Console.WriteLine(RouteData.Values["action"]);
+            //Console.WriteLine(RouteData.Values["id"]);
+
+			var products = ProductRepository.Products;
 
             if(id != null)
             {
