@@ -87,5 +87,19 @@ namespace ShopApp.WebUI.Controllers
             ProductRepository.AddProduct(p);
 			return RedirectToAction("List");
 		}
+
+		[HttpGet] 
+		public IActionResult Edit(int id) 
+		{
+			ViewBag.Categories = new SelectList(CategoryRepository.Categories, "CategoryId", "Name");
+			return View(ProductRepository.GetProductById(id));
+		}
+
+		[HttpPost]
+		public IActionResult Edit(Product p)
+		{
+			ProductRepository.EditProduct(p);
+			return RedirectToAction("List");
+		}
 	}
 }
