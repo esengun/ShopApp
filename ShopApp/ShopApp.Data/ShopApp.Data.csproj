@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShopApp.Entity\ShopApp.Entity.csproj" />
+    <Compile Remove="Concrete\Ado\**" />
+    <Compile Remove="Concrete\Dapper\**" />
+    <EmbeddedResource Remove="Concrete\Ado\**" />
+    <EmbeddedResource Remove="Concrete\Dapper\**" />
+    <None Remove="Concrete\Ado\**" />
+    <None Remove="Concrete\Dapper\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\Ado\" />
-    <Folder Include="Concrete\Dapper\" />
+    <ProjectReference Include="..\ShopApp.Entity\ShopApp.Entity.csproj" />
   </ItemGroup>
 
   <ItemGroup>

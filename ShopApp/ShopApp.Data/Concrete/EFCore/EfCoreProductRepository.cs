@@ -8,37 +8,17 @@ using System.Threading.Tasks;
 
 namespace ShopApp.Data.Concrete.EFCore
 {
-	public class EfCoreProductRepository : IProductRepository
+	public class EfCoreProductRepository : EFCoreRepository<Product, ShopContext>, IProductRepository
 	{
-		private ShopContext db = new ShopContext();
-
-		public void Create(Product entity)
-		{
-			db.Products.Add(entity);
-			db.SaveChanges();
-		}
-
-		public void Delete(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public List<Product> GetAll()
-		{
-			throw new NotImplementedException();
-		}
-
-		public Product GetById(int id)
-		{
-			throw new NotImplementedException();
-		}
-
 		public List<Product> GetPopularProducts()
 		{
-			throw new NotImplementedException();
+			using(var context = new ShopContext())
+			{
+				return context.Products.ToList();
+			}
 		}
 
-		public void Update(Product entity)
+		public List<Product> Gettop5Products()
 		{
 			throw new NotImplementedException();
 		}
