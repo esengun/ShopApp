@@ -25,12 +25,20 @@ namespace ShopApp.WebUI.Controllers
 			return View(product);
         }
 
-        // localhost:5000/product/list
-        public IActionResult List()
+		// localhost:5000/product/list => all products
+		// localhost:5000/product/list/2 => all products in category with id=2
+		public IActionResult List(int? id)
         {
+            var products = ProductRepository.Products;
+
+            if(id != null)
+            {
+                products =  products.Where(p => p.CategoryId == id).ToList();
+            }
+
             var productViewModel = new ProductViewModel()
-			{
-                Products = ProductRepository.Products
+            {
+                Products = products
             };
             
 			return View(productViewModel);

@@ -18,10 +18,10 @@ namespace ShopApp.WebUI.Data
 		{
 			_products = new List<Product>
 			{
-				new Product { ProductId = 1, Name = "samsung s6", Price = 2000, Description = "Android", ImageUrl = "1.png" },
-				new Product { ProductId = 2, Name = "samsung s7", Price = 3000, Description = "Android", IsApproved = true, ImageUrl = "2.png" },
-				new Product { ProductId = 3, Name = "samsung s8", Price = 4000, Description = "Android", IsApproved = true, ImageUrl = "3.png"  },
-				new Product { ProductId = 4, Name = "samsung s9", Price = 5000, Description = "Android", ImageUrl = "4.png"}
+				new Product { ProductId = 1, Name = "samsung s6", Price = 2000, Description = "Android", ImageUrl = "1.png", CategoryId = 1 },
+				new Product { ProductId = 2, Name = "samsung s7", Price = 3000, Description = "Android", IsApproved = true, ImageUrl = "2.png", CategoryId = 1 },
+				new Product { ProductId = 3, Name = "Lenovo", Price = 4000, Description = "Android", IsApproved = true, ImageUrl = "3.png", CategoryId = 2  },
+				new Product { ProductId = 4, Name = "Ardunio", Price = 5000, Description = "Android", ImageUrl = "4.png", CategoryId = 3}
 			};
 		}
 
