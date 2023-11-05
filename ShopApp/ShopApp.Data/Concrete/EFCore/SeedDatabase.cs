@@ -24,6 +24,7 @@ namespace ShopApp.Data.Concrete.EFCore
 				if (context.Products.Count() == 0)
 				{
 					context.Products.AddRange(Products);
+					context.AddRange(ProductCategories);
 				}
 			}
 			context.SaveChanges();
@@ -46,7 +47,22 @@ namespace ShopApp.Data.Concrete.EFCore
 			new Product(){ Name="Iphone X", Price=10000, Description="IOS smartphone", ImageUrl="6.png", IsApproved=false},
 			new Product(){ Name="Lenovo", Price=11000, Description="Windows computer", ImageUrl="3.png", IsApproved=true},
 			new Product(){ Name="Asus", Price=12000, Description="Windows computer", ImageUrl="4.png", IsApproved=true},
-			new Product(){ Name="Mac book pro", Price=9000, Description="IOS computer", ImageUrl="4.png", IsApproved=false}
+			new Product(){ Name="Mac book pro", Price=9000, Description="IOS computer", ImageUrl="4.png", IsApproved=false},
+			new Product(){ Name="Ardunio", Price=500, Description="Ardunio Kit", ImageUrl="6.png", IsApproved=false}
+		};
+
+		private static ProductCategory[] ProductCategories =
+		{
+			new ProductCategory(){ Category=Categories[0], Product=Products[0] },
+			new ProductCategory(){ Category=Categories[0], Product=Products[1] },
+			new ProductCategory(){ Category=Categories[0], Product=Products[2] },
+			new ProductCategory(){ Category=Categories[0], Product=Products[3] },
+			new ProductCategory(){ Category=Categories[0], Product=Products[4] },
+			new ProductCategory(){ Category=Categories[0], Product=Products[5] },
+			new ProductCategory(){ Category=Categories[1], Product=Products[6] },
+			new ProductCategory(){ Category=Categories[1], Product=Products[7] },
+			new ProductCategory(){ Category=Categories[1], Product=Products[8] },
+			new ProductCategory(){ Category=Categories[2], Product=Products[9] }
 		};
 	}
 }

@@ -41,6 +41,11 @@ namespace ShopApp.Business.Concrete
 			return _productRepository.GetById(id);
 		}
 
+		public Product GetProductDetails(int id)
+		{
+			return _productRepository.GetProductDetails(id);
+		}
+
 		public void Update(Product entity)
 		{
 			_productRepository.Update(entity);
