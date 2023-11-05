@@ -1,4 +1,6 @@
 using Microsoft.Extensions.FileProviders;
+using ShopApp.Business.Abstract;
+using ShopApp.Business.Concrete;
 using ShopApp.Data.Abstract;
 using ShopApp.Data.Concrete.EFCore;
 
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductRepository, EfCoreProductRepository>(); // DI IProductRepository represents EFCore.... If you want to use ex. MySQL then inject MySQLProductRepository
+builder.Services.AddScoped<IProductService, ProductManager>(); 
 
 var app = builder.Build();
 
