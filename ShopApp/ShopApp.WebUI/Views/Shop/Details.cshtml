@@ -1,0 +1,22 @@
+﻿@model Product
+
+
+<div class="row">
+	<div class="col-md-3">
+		<img src="~/images/@Model.ImageUrl" class="img-fluid" />
+	</div>
+	<div class="col-md-9">
+
+		<h5 class="mb-3">@Model.Name</h5> <hr />
+		<a href="#" class="btn btn-link p-0 mb-3">Smartphone | Electronic</a> 
+		<div class="mb-3">
+			<h4 class="text-primary mb-3">@Model.Price <i>DKK</i></h4>
+			<button type="submit" class="btn btn-primary btn-lg">Add to cart</button>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<p class="p-3">@Model.Description</p>
+	</div>
+</div>
