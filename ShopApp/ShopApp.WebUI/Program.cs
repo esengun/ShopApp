@@ -1,10 +1,13 @@
 using Microsoft.Extensions.FileProviders;
+using ShopApp.Data.Abstract;
+using ShopApp.Data.Concrete.EFCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IProductRepository, EfCoreProductRepository>(); // DI IProductRepository represents EFCore.... If you want to use ex. MySQL then inject MySQLProductRepository
 
 var app = builder.Build();
 

@@ -17,5 +17,11 @@ namespace ShopApp.Data.Concrete.EFCore
 		{
 			optionsBuilder.UseSqlServer("Data Source=MUSTAFA;Initial Catalog=ShopDB;Integrated Security=SSPI;TrustServerCertificate=True;");
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<ProductCategory>()
+				.HasKey(c => new { c.CategoryId, c.ProductId });
+		}
 	}
 }
