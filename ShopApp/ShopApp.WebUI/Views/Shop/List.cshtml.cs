@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ShopApp.WebUI.Views.Shared
+namespace ShopApp.WebUI.Views.Shop
 {
-    public class _Layout2Model : PageModel
+    public class ListModel : PageModel
     {
         public void OnGet()
         {

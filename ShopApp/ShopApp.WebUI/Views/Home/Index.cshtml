@@ -2,43 +2,30 @@
 @model ShopApp.WebUI.Views.Product.ListModel
 @{
 }*@
-@model ProductViewModel
+@model ProductListViewModel
 
-@{
-	var popularClass = Model.Products.Count() > 1 ? "popular" : ""; // applies to a style
-	var products = Model.Products; // declaring variables to be used in html
-}
+<partial name="_header">
 
-@section MessageBox
-{
-	<div class="alert alert-warning text-center m-0">
-		You have a message!
-	</div>
-}
 
-@section Header
-{
-	<partial name="_header">
-}
 
-@section Scripts
-{
-	@*You can add custom scripts that is only needed for this page*@
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-}
+	@if (Model.Products.Count == 0)
+	{
+		@await Html.PartialAsync("_noproduct")
+	}
+	else
+	{
+		<div class="row">
+			@foreach (var product in Model.Products)
+			{
+				<div class="col-md-3">
+					@await Html.PartialAsync("_product", product)
+				</div>
+			}
+		</div>
+	}
 
-@if (products.Count == 0)
-{
-	@await Html.PartialAsync("_noproduct")
-}
-else
-{
-	<div class="row">
-		@foreach (var product in products)
+	@section Scripts
 		{
-			<div class="col-md-3">
-				@await Html.PartialAsync("_product", product)
-			</div>
-		}
-	</div>
-}
+		@*You can add custom scripts that is only needed for this page*@
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	}

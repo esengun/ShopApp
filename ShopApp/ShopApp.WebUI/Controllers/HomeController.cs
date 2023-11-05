@@ -18,7 +18,7 @@ namespace ShopApp.WebUI.Controllers
         // localhost:5000/home/index
         public IActionResult Index()
         {
-			var productViewModel = new ProductViewModel()
+			var productViewModel = new ProductListViewModel()
 			{
 				Products = _productService.GetAll()
 			};
