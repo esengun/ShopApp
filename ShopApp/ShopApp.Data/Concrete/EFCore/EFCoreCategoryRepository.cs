@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShopApp.Data.Concrete.EFCore
 {
-	internal class EFCoreCategoryRepository : EFCoreRepository<Category, ShopContext>, ICategoryRepository
+	public class EfCoreCategoryRepository : EFCoreRepository<Category, ShopContext>, ICategoryRepository
 	{
 		public List<Product> GetPopularCategories()
 		{
