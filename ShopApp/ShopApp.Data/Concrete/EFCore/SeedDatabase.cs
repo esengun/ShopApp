@@ -32,9 +32,9 @@ namespace ShopApp.Data.Concrete.EFCore
 
 		private static Category[] Categories =
 		{
-			new Category(){ Name="Smartphone"},
-			new Category(){ Name="Computer"},
-			new Category(){ Name="Electronic"}
+			new Category(){ Name="Smartphone", Url="smartphone"},
+			new Category(){ Name="Computer", Url="computer"},
+			new Category(){ Name="Electronic", Url="electronic"}
 		};
 
 		private static Product[] Products =

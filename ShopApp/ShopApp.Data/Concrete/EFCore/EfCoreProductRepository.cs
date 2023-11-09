@@ -31,18 +31,18 @@ namespace ShopApp.Data.Concrete.EFCore
 			}
 		}
 
-		public List<Product> GetProductsByCategory(string category)
+		public List<Product> GetProductsByCategory(string categoryUrl)
 		{
 			using (var context = new ShopContext())
 			{
 				var products = context.Products.AsQueryable();
 
-				if(!string.IsNullOrEmpty(category))
+				if(!string.IsNullOrEmpty(categoryUrl))
 				{
 					products = products
 						.Include(i => i.ProductCategories)
 						.ThenInclude(c => c.Category)
-						.Where(i => i.ProductCategories.Any(a => a.Category.Name.ToLower() == category.ToLower()));
+						.Where(i => i.ProductCategories.Any(a => a.Category.Url == categoryUrl));
 				}
 				return products.ToList();
 			}
