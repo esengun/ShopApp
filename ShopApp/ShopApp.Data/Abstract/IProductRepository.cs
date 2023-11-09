@@ -10,7 +10,7 @@ namespace ShopApp.Data.Abstract
 	public interface IProductRepository : IRepository<Product>
 	{
 		Product GetProductDetails(string url);
-		List<Product> GetProductsByCategory(string category);
+		List<Product> GetProductsByCategory(string category, int page, int pageSize);
 		List<Product> GetPopularProducts();
 		List<Product> Gettop5Products();
 

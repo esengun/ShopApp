@@ -31,7 +31,7 @@ namespace ShopApp.Data.Concrete.EFCore
 			}
 		}
 
-		public List<Product> GetProductsByCategory(string categoryUrl)
+		public List<Product> GetProductsByCategory(string categoryUrl, int page, int pageSize)
 		{
 			using (var context = new ShopContext())
 			{
@@ -44,7 +44,7 @@ namespace ShopApp.Data.Concrete.EFCore
 						.ThenInclude(c => c.Category)
 						.Where(i => i.ProductCategories.Any(a => a.Category.Url == categoryUrl));
 				}
-				return products.ToList();
+				return products.Skip((page-1)*pageSize).Take(pageSize).ToList();
 			}
 		}
 
