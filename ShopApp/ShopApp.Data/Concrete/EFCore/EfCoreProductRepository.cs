@@ -31,6 +31,23 @@ namespace ShopApp.Data.Concrete.EFCore
 			}
 		}
 
+		public List<Product> GetProductsByCategory(string category)
+		{
+			using (var context = new ShopContext())
+			{
+				var products = context.Products.AsQueryable();
+
+				if(!string.IsNullOrEmpty(category))
+				{
+					products = products
+						.Include(i => i.ProductCategories)
+						.ThenInclude(c => c.Category)
+						.Where(i => i.ProductCategories.Any(a => a.Category.Name.ToLower() == category.ToLower()));
+				}
+				return products.ToList();
+			}
+		}
+
 		public List<Product> Gettop5Products()
 		{
 			throw new NotImplementedException();
