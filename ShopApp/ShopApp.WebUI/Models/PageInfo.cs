@@ -7,7 +7,7 @@
         public int CurrentPage { get; set; }
         public string CurrentCategory { get; set; }
 
-        private int TotalPages()
+        public int TotalPages()
         {
             return (int)Math.Ceiling((decimal)TotalItems/ItemsPerPage);
         }
