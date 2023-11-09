@@ -24,14 +24,14 @@ namespace ShopApp.WebUI.Controllers
 			return View(productViewModel);
 		}
 
-		public IActionResult Details(int? Id)
+		public IActionResult Details(string url)
 		{
-			if(Id == null)
+			if(url == null)
 			{
 				return NotFound();
 			}
 
-			var product = _productService.GetProductDetails((int)Id);
+			var product = _productService.GetProductDetails(url);
 			if(product == null)
 			{
 				return NotFound();

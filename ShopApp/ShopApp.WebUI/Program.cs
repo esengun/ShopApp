@@ -47,6 +47,14 @@ app.UseAuthorization();
 // localhost:5000/product/details
 // localhost:5000/product/details/2
 
+// the order of these routes are important as it checks given url 
+// one by one and calls the matched controller
+app.MapControllerRoute(
+	name: "productdetails",
+	pattern: "{url}",
+	defaults: new { controller = "Shop", action = "details" });
+
+
 app.MapControllerRoute(
     name: "products",
     pattern: "products/{category?}",

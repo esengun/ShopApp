@@ -12,8 +12,8 @@ using ShopApp.Data.Concrete.EFCore;
 namespace ShopApp.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20231105135407_ProductCategories")]
-    partial class ProductCategories
+    [Migration("20231109183627_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,10 @@ namespace ShopApp.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -67,6 +71,10 @@ namespace ShopApp.Data.Migrations
 
                     b.Property<double?>("Price")
                         .HasColumnType("float");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
 

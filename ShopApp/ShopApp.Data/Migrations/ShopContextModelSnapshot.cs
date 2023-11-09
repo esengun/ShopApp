@@ -69,6 +69,10 @@ namespace ShopApp.Data.Migrations
                     b.Property<double?>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
