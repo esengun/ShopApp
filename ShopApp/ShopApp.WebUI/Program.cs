@@ -47,7 +47,10 @@ app.UseAuthorization();
 // localhost:5000/product/details
 // localhost:5000/product/details/2
 
-
+app.MapControllerRoute(
+    name: "products",
+    pattern: "products/{category?}",
+    defaults: new {controller="Shop", action="list"});
 
 app.MapControllerRoute(
     name: "default",
