@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using ShopApp.Data.Abstract;
 using ShopApp.Entity;
 using System;
@@ -11,6 +12,23 @@ namespace ShopApp.Data.Concrete.EFCore
 {
 	public class EfCoreProductRepository : EFCoreRepository<Product, ShopContext>, IProductRepository
 	{
+		public int GetCountByCategory(string category)
+		{
+			using (var context = new ShopContext())
+			{
+				var products = context.Products.AsQueryable();
+
+				if (!string.IsNullOrEmpty(category))
+				{
+					products = products
+						.Include(i => i.ProductCategories)
+						.ThenInclude(c => c.Category)
+						.Where(i => i.ProductCategories.Any(a => a.Category.Url == category));
+				}
+				return products.Count();
+			}
+		}
+
 		public List<Product> GetPopularProducts()
 		{
 			using (var context = new ShopContext())

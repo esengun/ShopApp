@@ -16,5 +16,6 @@ namespace ShopApp.Business.Abstract
 		void Delete(Product entity);
 		Product GetProductDetails(string url);
 		List<Product> GetProductsByCategory(string category, int page, int pageSize);
+		int GetCountByCategory(string category);
 	}
 }
