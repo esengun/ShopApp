@@ -10,10 +10,12 @@ namespace ShopApp.WebUI.Controllers
 	public class AdminController : Controller
 	{
 		private IProductService _productService;
+		private ICategoryService _categoryService;
 
-		public AdminController(IProductService productService)
+		public AdminController(IProductService productService, ICategoryService categoryService)
 		{
 			this._productService = productService;
+			_categoryService = categoryService;
 		}
 
 		public IActionResult ProductList()
@@ -52,7 +54,7 @@ namespace ShopApp.WebUI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Edit(int? id)
+		public IActionResult EditProduct(int? id)
 		{
 			if (id == null)
 			{
@@ -79,7 +81,7 @@ namespace ShopApp.WebUI.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Edit(ProductModel productModel)
+		public IActionResult EditProduct(ProductModel productModel)
 		{
 			var product = _productService.GetById(productModel.ProductId);
 			if (product == null)
@@ -101,7 +103,7 @@ namespace ShopApp.WebUI.Controllers
 			return RedirectToAction("ProductList");
 		}
 
-		public IActionResult Delete(int id)
+		public IActionResult DeleteProduct(int id)
 		{
 			var product = _productService.GetById(id);
 			if (product == null)
@@ -115,6 +117,99 @@ namespace ShopApp.WebUI.Controllers
 
 
 			return RedirectToAction("ProductList");
+		}
+
+		public IActionResult CategoryList()
+		{
+			return View(new CategoryListViewModel()
+			{
+				Categories = _categoryService.GetAll()
+			});
+		}
+
+		[HttpGet]
+		public IActionResult CreateCategory()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult CreateCategory(CategoryModel categoryModel)
+		{
+			var category = new Category
+			{
+				Name = categoryModel.Name,
+				Url = categoryModel.Url
+			};
+			_categoryService.Create(category);
+
+			// ViewData is lost after redirecting to another action
+			// TempData is preserved between actions
+			var alert = new AlertMessage($"{category.Name} category is created", "success");
+			TempData["message"] = JsonConvert.SerializeObject(alert);
+
+			return RedirectToAction("CategoryList");
+		}
+
+		[HttpGet]
+		public IActionResult EditCategory(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var category = _categoryService.GetByIdWithProducts((int)id);
+
+			if (category == null)
+			{
+				return NotFound();
+			}
+
+			var categoryModel = new CategoryModel()
+			{
+				CategoryId = category.CategoryId,
+				Name = category.Name,
+				Url = category.Url,
+				Products = category.ProductCategories.Select(p=>p.Product).ToList()
+			};
+			return View(categoryModel);
+		}
+
+		[HttpPost]
+		public IActionResult EditCategory(CategoryModel categoryModel)
+		{
+			var category = _categoryService.GetById(categoryModel.CategoryId);
+			if (category == null)
+			{
+				return NotFound();
+			}
+
+			category.Name = categoryModel.Name;
+			category.Url = categoryModel.Url;
+
+			_categoryService.Update(category);
+
+			var alert = new AlertMessage($"{category.Name} category is updated", "success");
+			TempData["message"] = JsonConvert.SerializeObject(alert);
+
+			return RedirectToAction("CategoryList");
+		}
+
+		public IActionResult DeleteCategory(int id)
+		{
+			var category = _categoryService.GetById(id);
+			if (category == null)
+			{
+				return NotFound();
+			}
+			_categoryService.Delete(category);
+
+			var alert = new AlertMessage($"{category.Name} category is deleted", "danger");
+			TempData["message"] = JsonConvert.SerializeObject(alert);
+
+
+			return RedirectToAction("CategoryList");
 		}
 	}
 }

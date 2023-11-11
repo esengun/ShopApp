@@ -9,6 +9,7 @@ namespace ShopApp.Data.Abstract
 {
 	public interface ICategoryRepository : IRepository<Category>
 	{
+		Category GetByIdWithProducts(int categoryId);
 		List<Product> GetPopularCategories();
 	}
 }

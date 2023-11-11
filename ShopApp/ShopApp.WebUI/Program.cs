@@ -50,6 +50,21 @@ app.UseAuthorization();
 // the order of these routes are important as it checks given url 
 // one by one and calls the matched controller
 app.MapControllerRoute(
+	name: "admincategorylist",
+	pattern: "admin/categories",
+	defaults: new { controller = "Admin", action = "CategoryList" });
+
+app.MapControllerRoute(
+	name: "admincategorylist",
+	pattern: "admin/categories/{id?}",
+	defaults: new { controller = "Admin", action = "EditCategory" });
+
+app.MapControllerRoute(
+	name: "admincategorylist",
+	pattern: "admin/categories/delete/{id?}",
+	defaults: new { controller = "Admin", action = "DeleteCategory" });
+
+app.MapControllerRoute(
 	name: "adminproductlist",
 	pattern: "admin/products",
 	defaults: new { controller = "Admin", action = "ProductList" });
@@ -57,12 +72,12 @@ app.MapControllerRoute(
 app.MapControllerRoute(
 	name: "adminproductlist",
 	pattern: "admin/products/{id?}",
-	defaults: new { controller = "Admin", action = "Edit" });
+	defaults: new { controller = "Admin", action = "EditProduct" });
 
 app.MapControllerRoute(
 	name: "adminproductlist",
 	pattern: "admin/products/delete/{id?}",
-	defaults: new { controller = "Admin", action = "Delete" });
+	defaults: new { controller = "Admin", action = "DeleteProduct" });
 
 app.MapControllerRoute(
 	name: "search",
