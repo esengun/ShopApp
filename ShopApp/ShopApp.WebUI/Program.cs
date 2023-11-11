@@ -61,8 +61,8 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
 	name: "adminproductlist",
-	pattern: "admin/products/{id?}",
-	defaults: new { controller = "Admin", action = "Edit" });
+	pattern: "admin/products/delete/{id?}",
+	defaults: new { controller = "Admin", action = "Delete" });
 
 app.MapControllerRoute(
 	name: "search",

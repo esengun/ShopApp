@@ -2,6 +2,7 @@
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
 using ShopApp.WebUI.Models;
+using ShopApp.WebUI.Views.Shared;
 
 namespace ShopApp.WebUI.Controllers
 {
@@ -87,6 +88,17 @@ namespace ShopApp.WebUI.Controllers
 
 			_productService.Update(product);
 
+			return RedirectToAction("ProductList");
+		}
+
+		public IActionResult Delete(int id)
+		{
+			var product = _productService.GetById(id);
+			if (product == null)
+			{
+				return NotFound();
+			}
+			_productService.Delete(product);
 			return RedirectToAction("ProductList");
 		}
 	}
