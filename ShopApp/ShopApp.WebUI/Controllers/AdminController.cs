@@ -93,6 +93,8 @@ namespace ShopApp.WebUI.Controllers
 
 			_productService.Update(product);
 
+			TempData["message"] = $"{product.Name} product is updated";
+
 			return RedirectToAction("ProductList");
 		}
 
@@ -104,6 +106,9 @@ namespace ShopApp.WebUI.Controllers
 				return NotFound();
 			}
 			_productService.Delete(product);
+
+			TempData["message"] = $"{product.Name} product is deleted";
+
 			return RedirectToAction("ProductList");
 		}
 	}
