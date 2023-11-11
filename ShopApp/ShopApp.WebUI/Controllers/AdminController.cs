@@ -21,5 +21,26 @@ namespace ShopApp.WebUI.Controllers
 				Products = _productService.GetAll()
 			});
 		}
+
+		[HttpGet]
+		public IActionResult CreateProduct()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult CreateProduct(ProductModel productModel)
+		{
+			var product = new Product
+			{
+				Name = productModel.Name,
+				Description = productModel.Description,
+				Price = productModel.Price,
+				Url = productModel.Url,
+				ImageUrl = productModel.ImageUrl
+			};
+			_productService.Create(product);
+			return RedirectToAction("ProductList");
+		}
 	}
 }
