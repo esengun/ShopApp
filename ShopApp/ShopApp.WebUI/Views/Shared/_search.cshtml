@@ -1,0 +1,22 @@
+﻿@*@page
+@model ShopApp.WebUI.Views.Shared._searchModel
+@{
+}*@
+
+<div class="card mt-3">
+	<div class="card-header">
+		<h5>Search</h5>
+	</div>
+	<div class="card-body">
+		<form action="/search">
+			<div class="form-group mb-2">
+				@*name="q" so the controller list method will take a parameter q to get the search value*@
+				<input name="q" class="form-control" type="text" placeholder="Search" aria-label="Search">
+			</div>
+			<button type="submit" class="btn btn-danger btn-sm w-100">Search</button>
+		</form>
+	</div>
+</div>
+
+
+
