@@ -46,6 +46,11 @@ namespace ShopApp.Business.Concrete
 			return _productRepository.GetCountByCategory(category);
 		}
 
+		public List<Product> GetHomeProducts()
+		{
+			return _productRepository.GetHomeProducts();
+		}
+
 		public Product GetProductDetails(string url)
 		{
 			return _productRepository.GetProductDetails(url);

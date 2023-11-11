@@ -16,7 +16,9 @@ namespace ShopApp.Data.Concrete.EFCore
 		{
 			using (var context = new ShopContext())
 			{
-				var products = context.Products.AsQueryable();
+				var products = context.Products
+					.Where(i => i.IsApproved)
+					.AsQueryable();
 
 				if (!string.IsNullOrEmpty(category))
 				{
@@ -26,6 +28,16 @@ namespace ShopApp.Data.Concrete.EFCore
 						.Where(i => i.ProductCategories.Any(a => a.Category.Url == category));
 				}
 				return products.Count();
+			}
+		}
+
+		public List<Product> GetHomeProducts()
+		{
+			using (var context = new ShopContext())
+			{
+				return context.Products
+					.Where(p => p.IsHome && p.IsApproved)
+					.ToList();
 			}
 		}
 
@@ -53,16 +65,19 @@ namespace ShopApp.Data.Concrete.EFCore
 		{
 			using (var context = new ShopContext())
 			{
-				var products = context.Products.AsQueryable();
+				var products = context
+					.Products
+					.Where(i => i.IsApproved)
+					.AsQueryable();
 
-				if(!string.IsNullOrEmpty(categoryUrl))
+				if (!string.IsNullOrEmpty(categoryUrl))
 				{
 					products = products
 						.Include(i => i.ProductCategories)
 						.ThenInclude(c => c.Category)
 						.Where(i => i.ProductCategories.Any(a => a.Category.Url == categoryUrl));
 				}
-				return products.Skip((page-1)*pageSize).Take(pageSize).ToList();
+				return products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 			}
 		}
 

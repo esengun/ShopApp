@@ -14,5 +14,6 @@ namespace ShopApp.Data.Abstract
 		List<Product> GetPopularProducts();
 		List<Product> Gettop5Products();
 		int GetCountByCategory(string category);
+		List<Product> GetHomeProducts();
 	}
 }
