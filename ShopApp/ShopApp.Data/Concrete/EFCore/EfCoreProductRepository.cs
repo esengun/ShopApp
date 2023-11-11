@@ -86,5 +86,17 @@ namespace ShopApp.Data.Concrete.EFCore
 				return products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 			}
 		}
+
+		public Product GetByIdWithCategories(int productId)
+		{
+			using (var context = new ShopContext())
+			{
+				return context.Products
+					.Where(i => i.ProductId == productId)
+					.Include(i => i.ProductCategories)
+					.ThenInclude(c => c.Category)
+					.FirstOrDefault();
+			}
+		}
 	}
 }

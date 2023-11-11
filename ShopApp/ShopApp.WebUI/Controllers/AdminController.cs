@@ -60,8 +60,8 @@ namespace ShopApp.WebUI.Controllers
 			{
 				return NotFound();
 			}
-
-			var product = _productService.GetById((int)id);
+			
+			var product = _productService.GetByIdWithCategories((int)id);
 
 			if (product == null)
 			{
@@ -75,8 +75,12 @@ namespace ShopApp.WebUI.Controllers
 				Description = product.Description,
 				Url = product.Url,
 				ImageUrl = product.ImageUrl,
-				Price = product.Price
+				Price = product.Price,
+				SelectedCategories = product.ProductCategories.Select(p => p.Category).ToList()
 			};
+
+			ViewBag.Categories = _categoryService.GetAll();
+
 			return View(productModel);
 		}
 

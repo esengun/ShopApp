@@ -14,5 +14,6 @@ namespace ShopApp.Data.Abstract
 		int GetCountByCategory(string category);
 		List<Product> GetHomeProducts();
 		List<Product> GetSearchResult(string searchString);
+		Product GetByIdWithCategories(int productId);
 	}
 }
