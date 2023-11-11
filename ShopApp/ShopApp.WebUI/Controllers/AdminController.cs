@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
 using ShopApp.WebUI.Models;
@@ -44,7 +45,8 @@ namespace ShopApp.WebUI.Controllers
 
 			// ViewData is lost after redirecting to another action
 			// TempData is preserved between actions
-			TempData["message"] = $"{product.Name} product is added";
+			var alert = new AlertMessage($"{product.Name} product is created", "success");
+			TempData["message"] = JsonConvert.SerializeObject(alert);
 
 			return RedirectToAction("ProductList");
 		}
@@ -93,7 +95,8 @@ namespace ShopApp.WebUI.Controllers
 
 			_productService.Update(product);
 
-			TempData["message"] = $"{product.Name} product is updated";
+			var alert = new AlertMessage($"{product.Name} product is updated", "success");
+			TempData["message"] = JsonConvert.SerializeObject(alert);
 
 			return RedirectToAction("ProductList");
 		}
@@ -107,7 +110,9 @@ namespace ShopApp.WebUI.Controllers
 			}
 			_productService.Delete(product);
 
-			TempData["message"] = $"{product.Name} product is deleted";
+			var alert = new AlertMessage($"{product.Name} product is deleted", "danger");
+			TempData["message"] = JsonConvert.SerializeObject(alert);
+
 
 			return RedirectToAction("ProductList");
 		}

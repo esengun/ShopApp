@@ -21,10 +21,11 @@
 
 			@if (TempData["message"] != null)
 			{
+				var message = JsonConvert.DeserializeObject<AlertMessage>(TempData["message"] as String);
 				<div class="row">
 					<div class="col-md-12">
-						<div class="alert alert-warning">
-							@TempData["message"]
+						<div class="alert alert-@message.MessageType">
+							@message.MessageText
 						</div>
 					</div>
 				</div>
