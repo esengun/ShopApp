@@ -55,6 +55,16 @@ app.MapControllerRoute(
 	defaults: new { controller = "Admin", action = "ProductList" });
 
 app.MapControllerRoute(
+	name: "adminproductlist",
+	pattern: "admin/products/{id?}",
+	defaults: new { controller = "Admin", action = "Edit" });
+
+app.MapControllerRoute(
+	name: "adminproductlist",
+	pattern: "admin/products/{id?}",
+	defaults: new { controller = "Admin", action = "Edit" });
+
+app.MapControllerRoute(
 	name: "search",
 	pattern: "search",
 	defaults: new { controller = "Shop", action = "search" });
