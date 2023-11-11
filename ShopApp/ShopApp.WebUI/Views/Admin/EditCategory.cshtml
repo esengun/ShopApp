@@ -68,7 +68,11 @@
 									</td>
 									<td>
 										<a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm mr-2">Edit</a>
-										<a asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
+										<form asp-controller="Admin" asp-action="DeleteProductFromCategory" method="post" style="display:inline;">
+											<input type="hidden" name="productId" value="@item.ProductId" />
+											<input type="hidden" name="categoryId" value="@Model.CategoryId" />
+											<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+										</form>
 									</td>
 								</tr>
 							}

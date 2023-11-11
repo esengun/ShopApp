@@ -62,7 +62,8 @@ namespace ShopApp.Data.Concrete.EFCore
 			new ProductCategory(){ Category=Categories[1], Product=Products[6] },
 			new ProductCategory(){ Category=Categories[1], Product=Products[7] },
 			new ProductCategory(){ Category=Categories[1], Product=Products[8] },
-			new ProductCategory(){ Category=Categories[2], Product=Products[9] }
+			new ProductCategory(){ Category=Categories[2], Product=Products[9] },
+			new ProductCategory(){ Category=Categories[1], Product=Products[3] }
 		};
 	}
 }
