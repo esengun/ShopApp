@@ -41,6 +41,11 @@ namespace ShopApp.WebUI.Controllers
 				ImageUrl = productModel.ImageUrl
 			};
 			_productService.Create(product);
+
+			// ViewData is lost after redirecting to another action
+			// TempData is preserved between actions
+			TempData["message"] = $"{product.Name} product is added";
+
 			return RedirectToAction("ProductList");
 		}
 
