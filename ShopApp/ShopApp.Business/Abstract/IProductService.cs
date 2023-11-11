@@ -18,5 +18,7 @@ namespace ShopApp.Business.Abstract
 		List<Product> GetProductsByCategory(string category, int page, int pageSize);
 		int GetCountByCategory(string category);
 		List<Product> GetHomeProducts();
+
+		List<Product> GetSearchResult(string searchString);
 	}
 }

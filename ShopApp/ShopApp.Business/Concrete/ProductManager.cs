@@ -61,6 +61,11 @@ namespace ShopApp.Business.Concrete
 			return _productRepository.GetProductsByCategory(category, page, pageSize);
 		}
 
+		public List<Product> GetSearchResult(string searchString)
+		{
+			return _productRepository.GetSearchResult(searchString);
+		}
+
 		public void Update(Product entity)
 		{
 			_productRepository.Update(entity);

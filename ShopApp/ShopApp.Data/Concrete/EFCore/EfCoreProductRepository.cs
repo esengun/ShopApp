@@ -31,6 +31,20 @@ namespace ShopApp.Data.Concrete.EFCore
 			}
 		}
 
+		public List<Product> GetSearchResult(string searchString)
+		{
+			using (var context = new ShopContext())
+			{
+				var products = context
+					.Products
+					.Where(p => p.IsApproved && (p.Name.ToLower().Contains(searchString.ToLower()) || p.Description.ToLower().Contains(searchString.ToLower())))
+					.AsQueryable();
+
+
+				return products.ToList();
+			}
+		}
+
 		public List<Product> GetHomeProducts()
 		{
 			using (var context = new ShopContext())
@@ -38,14 +52,6 @@ namespace ShopApp.Data.Concrete.EFCore
 				return context.Products
 					.Where(p => p.IsHome && p.IsApproved)
 					.ToList();
-			}
-		}
-
-		public List<Product> GetPopularProducts()
-		{
-			using (var context = new ShopContext())
-			{
-				return context.Products.ToList();
 			}
 		}
 
@@ -79,11 +85,6 @@ namespace ShopApp.Data.Concrete.EFCore
 				}
 				return products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 			}
-		}
-
-		public List<Product> Gettop5Products()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
