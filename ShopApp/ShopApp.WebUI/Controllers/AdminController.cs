@@ -35,22 +35,26 @@ namespace ShopApp.WebUI.Controllers
 		[HttpPost]
 		public IActionResult CreateProduct(ProductModel productModel)
 		{
-			var product = new Product
+			if (ModelState.IsValid) // Checks if the validations for each field in ProductModel are valid
 			{
-				Name = productModel.Name,
-				Description = productModel.Description,
-				Price = productModel.Price,
-				Url = productModel.Url,
-				ImageUrl = productModel.ImageUrl
-			};
-			_productService.Create(product);
+				var product = new Product
+				{
+					Name = productModel.Name,
+					Description = productModel.Description,
+					Price = productModel.Price,
+					Url = productModel.Url,
+					ImageUrl = productModel.ImageUrl
+				};
+				_productService.Create(product);
 
-			// ViewData is lost after redirecting to another action
-			// TempData is preserved between actions
-			var alert = new AlertMessage($"{product.Name} product is created", "success");
-			TempData["message"] = JsonConvert.SerializeObject(alert);
+				// ViewData is lost after redirecting to another action
+				// TempData is preserved between actions
+				var alert = new AlertMessage($"{product.Name} product is created", "success");
+				TempData["message"] = JsonConvert.SerializeObject(alert);
 
-			return RedirectToAction("ProductList");
+				return RedirectToAction("ProductList");
+			}
+			return View(productModel);
 		}
 
 		[HttpGet]
@@ -87,24 +91,29 @@ namespace ShopApp.WebUI.Controllers
 		[HttpPost]
 		public IActionResult EditProduct(ProductModel productModel, int[] categoryIds)
 		{
-			var product = _productService.GetById(productModel.ProductId);
-			if (product == null)
+			if (ModelState.IsValid)
 			{
-				return NotFound();
+				var product = _productService.GetById(productModel.ProductId);
+				if (product == null)
+				{
+					return NotFound();
+				}
+
+				product.Name = productModel.Name;
+				product.Description = productModel.Description;
+				product.Url = productModel.Url;
+				product.ImageUrl = productModel.ImageUrl;
+				product.Price = productModel.Price;
+
+				_productService.Update(product, categoryIds);
+
+				var alert = new AlertMessage($"{product.Name} product is updated", "success");
+				TempData["message"] = JsonConvert.SerializeObject(alert);
+
+				return RedirectToAction("ProductList");
 			}
-
-			product.Name = productModel.Name;
-			product.Description = productModel.Description;
-			product.Url = productModel.Url;
-			product.ImageUrl = productModel.ImageUrl;
-			product.Price = productModel.Price;
-
-			_productService.Update(product, categoryIds);
-
-			var alert = new AlertMessage($"{product.Name} product is updated", "success");
-			TempData["message"] = JsonConvert.SerializeObject(alert);
-
-			return RedirectToAction("ProductList");
+			ViewBag.Categories = _categoryService.GetAll();
+			return View(productModel);
 		}
 
 		public IActionResult DeleteProduct(int id)
