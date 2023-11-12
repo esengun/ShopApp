@@ -149,19 +149,23 @@ namespace ShopApp.WebUI.Controllers
 		[HttpPost]
 		public IActionResult CreateCategory(CategoryModel categoryModel)
 		{
-			var category = new Category
+			if (ModelState.IsValid)
 			{
-				Name = categoryModel.Name,
-				Url = categoryModel.Url
-			};
-			_categoryService.Create(category);
+				var category = new Category
+				{
+					Name = categoryModel.Name,
+					Url = categoryModel.Url
+				};
+				_categoryService.Create(category);
 
-			// ViewData is lost after redirecting to another action
-			// TempData is preserved between actions
-			var alert = new AlertMessage($"{category.Name} category is created", "success");
-			TempData["message"] = JsonConvert.SerializeObject(alert);
+				// ViewData is lost after redirecting to another action
+				// TempData is preserved between actions
+				var alert = new AlertMessage($"{category.Name} category is created", "success");
+				TempData["message"] = JsonConvert.SerializeObject(alert);
 
-			return RedirectToAction("CategoryList");
+				return RedirectToAction("CategoryList");
+			}
+			return View(categoryModel);
 		}
 
 		[HttpGet]
@@ -192,21 +196,25 @@ namespace ShopApp.WebUI.Controllers
 		[HttpPost]
 		public IActionResult EditCategory(CategoryModel categoryModel)
 		{
-			var category = _categoryService.GetById(categoryModel.CategoryId);
-			if (category == null)
+			if (ModelState.IsValid)
 			{
-				return NotFound();
+				var category = _categoryService.GetById(categoryModel.CategoryId);
+				if (category == null)
+				{
+					return NotFound();
+				}
+
+				category.Name = categoryModel.Name;
+				category.Url = categoryModel.Url;
+
+				_categoryService.Update(category);
+
+				var alert = new AlertMessage($"{category.Name} category is updated", "success");
+				TempData["message"] = JsonConvert.SerializeObject(alert);
+
+				return RedirectToAction("CategoryList");
 			}
-
-			category.Name = categoryModel.Name;
-			category.Url = categoryModel.Url;
-
-			_categoryService.Update(category);
-
-			var alert = new AlertMessage($"{category.Name} category is updated", "success");
-			TempData["message"] = JsonConvert.SerializeObject(alert);
-
-			return RedirectToAction("CategoryList");
+			return View(categoryModel);
 		}
 
 		public IActionResult DeleteCategory(int id)
