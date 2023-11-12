@@ -81,9 +81,19 @@ namespace ShopApp.Business.Concrete
 			_productRepository.Update(entity);
 		}
 
-		public void Update(Product product, int[] categoryIds)
+		public bool Update(Product product, int[] categoryIds)
 		{
-			_productRepository.Update(product, categoryIds);
+			if (Validation(product))
+			{
+				if(categoryIds.Length == 0)
+				{
+					ErrorMessage += "At least one category must be choosen for the product!";
+					return false;
+				}
+				_productRepository.Update(product, categoryIds);
+				return true;
+			}
+			return false;
 		}
 
 		public string ErrorMessage { get; set; }

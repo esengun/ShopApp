@@ -80,6 +80,8 @@ namespace ShopApp.WebUI.Controllers
 				Url = product.Url,
 				ImageUrl = product.ImageUrl,
 				Price = product.Price,
+				IsApproved = product.IsApproved,
+				IsHome = product.IsHome,
 				SelectedCategories = product.ProductCategories.Select(p => p.Category).ToList()
 			};
 
@@ -104,13 +106,15 @@ namespace ShopApp.WebUI.Controllers
 				product.Url = productModel.Url;
 				product.ImageUrl = productModel.ImageUrl;
 				product.Price = productModel.Price;
+				product.IsApproved = productModel.IsApproved;
+				product.IsHome = productModel.IsHome;
 
-				_productService.Update(product, categoryIds);
-
-				var alert = new AlertMessage($"{product.Name} product is updated", "success");
-				TempData["message"] = JsonConvert.SerializeObject(alert);
-
-				return RedirectToAction("ProductList");
+				if(_productService.Update(product, categoryIds))
+				{
+					CreateMessage($"{product.Name} product is updated", "success");
+					return RedirectToAction("ProductList");
+				}
+				CreateMessage(_productService.ErrorMessage, "danger");
 			}
 			ViewBag.Categories = _categoryService.GetAll();
 			return View(productModel);

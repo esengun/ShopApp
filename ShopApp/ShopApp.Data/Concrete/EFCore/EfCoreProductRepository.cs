@@ -105,22 +105,24 @@ namespace ShopApp.Data.Concrete.EFCore
 			{
 				var product = context.Products
 					.Include(i => i.ProductCategories)
-					.FirstOrDefault(i=>i.ProductId == entity.ProductId);
-				
-				if(product != null)
+					.FirstOrDefault(i => i.ProductId == entity.ProductId);
+
+				if (product != null)
 				{
 					product.Name = entity.Name;
 					product.Price = entity.Price;
 					product.Description = entity.Description;
 					product.Url = entity.Url;
 					product.ImageUrl = entity.ImageUrl;
+					product.IsApproved = entity.IsApproved;
+					product.IsHome = entity.IsHome;
 					product.ProductCategories = categoryIds.Select(catid => new ProductCategory()
 					{
 						ProductId = entity.ProductId,
 						CategoryId = catid
 					}).ToList();
 				}
-				
+
 				context.SaveChanges();
 			}
 
