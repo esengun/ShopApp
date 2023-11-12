@@ -20,5 +20,6 @@ namespace ShopApp.Business.Abstract
 		List<Product> GetHomeProducts();
 		List<Product> GetSearchResult(string searchString);
 		Product GetByIdWithCategories(int productId);
+		void Update(Product product, int[] categoryIds);
 	}
 }

@@ -85,7 +85,7 @@ namespace ShopApp.WebUI.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult EditProduct(ProductModel productModel)
+		public IActionResult EditProduct(ProductModel productModel, int[] categoryIds)
 		{
 			var product = _productService.GetById(productModel.ProductId);
 			if (product == null)
@@ -99,7 +99,7 @@ namespace ShopApp.WebUI.Controllers
 			product.ImageUrl = productModel.ImageUrl;
 			product.Price = productModel.Price;
 
-			_productService.Update(product);
+			_productService.Update(product, categoryIds);
 
 			var alert = new AlertMessage($"{product.Name} product is updated", "success");
 			TempData["message"] = JsonConvert.SerializeObject(alert);
