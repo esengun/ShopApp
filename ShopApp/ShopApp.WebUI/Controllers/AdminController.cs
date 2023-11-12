@@ -45,14 +45,14 @@ namespace ShopApp.WebUI.Controllers
 					Url = productModel.Url,
 					ImageUrl = productModel.ImageUrl
 				};
-				_productService.Create(product);
-
-				// ViewData is lost after redirecting to another action
-				// TempData is preserved between actions
-				var alert = new AlertMessage($"{product.Name} product is created", "success");
-				TempData["message"] = JsonConvert.SerializeObject(alert);
-
-				return RedirectToAction("ProductList");
+				if (_productService.Create(product))
+				{
+					CreateMessage($"{product.Name} product is created", "success");
+					
+					return RedirectToAction("ProductList");
+				}
+				CreateMessage(_productService.ErrorMessage, "danger");
+				return View(productModel);
 			}
 			return View(productModel);
 		}
@@ -238,6 +238,13 @@ namespace ShopApp.WebUI.Controllers
 		{
 			_categoryService.DeleteProductFromCategory(productId, categoryId);
 			return Redirect("/admin/categories/"+categoryId);
+		}
+		private void CreateMessage(string message, string alertType)
+		{
+			// ViewData is lost after redirecting to another action
+			// TempData is preserved between actions
+			var alert = new AlertMessage(message, alertType);
+			TempData["message"] = JsonConvert.SerializeObject(alert);
 		}
 	}
 }

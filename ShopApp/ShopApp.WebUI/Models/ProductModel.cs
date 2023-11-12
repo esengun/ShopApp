@@ -8,16 +8,16 @@ namespace ShopApp.WebUI.Models
 	{
 		public int ProductId { get; set; }
 		
-		[Display(Name = "Name", Prompt = "Enter product name")]
-		[Required(ErrorMessage = "Name can not be empty!")]
-		[StringLength(60, MinimumLength = 5,ErrorMessage ="Product name should be between 5-60 characters!")]
+		//[Display(Name = "Name", Prompt = "Enter product name")]
+		//[Required(ErrorMessage = "Name can not be empty!")]
+		//[StringLength(60, MinimumLength = 5,ErrorMessage ="Product name should be between 5-60 characters!")]
 		public string Name { get; set; }
 		
 		[Required(ErrorMessage = "Url can not be empty!")]
 		public string Url { get; set; }
 		
-		[Required(ErrorMessage = "Price can not be empty!")]
-		[Range(1,10000, ErrorMessage ="Price must be between 1-10000!")]
+		//[Required(ErrorMessage = "Price can not be empty!")]
+		//[Range(1,10000, ErrorMessage ="Price must be between 1-10000!")]
 		public double? Price { get; set; }
 		
 		[Required(ErrorMessage = "Description can not be empty!")]

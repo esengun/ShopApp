@@ -19,10 +19,15 @@ namespace ShopApp.Business.Concrete
 			_productRepository = productRepository;
         }
 
-        public void Create(Product entity)
+		public bool Create(Product entity)
 		{
 			// Apply business rules
-			_productRepository.Create(entity);
+			if (Validation(entity))
+			{
+				_productRepository.Create(entity);
+				return true;
+			}
+			return false;
 		}
 
 		public void Delete(Product entity)
@@ -79,6 +84,34 @@ namespace ShopApp.Business.Concrete
 		public void Update(Product product, int[] categoryIds)
 		{
 			_productRepository.Update(product, categoryIds);
+		}
+
+		public string ErrorMessage { get; set; }
+
+
+		public bool Validation(Product entity)
+		{
+			var isValid = true;
+
+			if (string.IsNullOrEmpty(entity.Name))
+			{
+				ErrorMessage += "Product Name can not be empty!\n";
+				isValid = false;
+			}
+
+			if (entity.Name.Length <= 3 || entity.Name.Length > 60)
+			{
+				ErrorMessage += "Product Name length must be between 3-60!\n";
+				isValid = false;
+			}
+
+			if (entity.Price < 0)
+			{
+				ErrorMessage += "Product Price can not be negative!\n";
+				isValid = false;
+			}
+
+			return isValid;
 		}
 	}
 }
