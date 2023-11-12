@@ -91,7 +91,7 @@ namespace ShopApp.WebUI.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult EditProduct(ProductModel productModel, int[] categoryIds)
+		public async Task<IActionResult> EditProduct(ProductModel productModel, int[] categoryIds, IFormFile file)
 		{
 			if (ModelState.IsValid)
 			{
@@ -104,10 +104,21 @@ namespace ShopApp.WebUI.Controllers
 				product.Name = productModel.Name;
 				product.Description = productModel.Description;
 				product.Url = productModel.Url;
-				product.ImageUrl = productModel.ImageUrl;
 				product.Price = productModel.Price;
 				product.IsApproved = productModel.IsApproved;
 				product.IsHome = productModel.IsHome;
+
+				if(file != null)
+				{
+					var extension = Path.GetExtension(file.FileName);
+					var randomName = string.Format($"{Guid.NewGuid()}{extension}");
+					product.ImageUrl = randomName;
+					var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot\\images", randomName);
+					using(var stream  = new FileStream(path, FileMode.Create))
+					{
+						await file.CopyToAsync(stream);
+					}
+				}
 
 				if(_productService.Update(product, categoryIds))
 				{
