@@ -43,7 +43,7 @@
 					<input type="hidden" name="Products[@i].Description" value="@Model.Products[@i].Description">
 					<input type="hidden" name="Products[@i].Url" value="@Model.Products[@i].Url">
 					<input type="hidden" name="Products[@i].ProductCategories" value="@Model.Products[@i].ProductCategories">
-					
+
 				}
 			</div>
 		</form>
@@ -106,5 +106,12 @@
 		</div>
 	</div>
 </div>
+
+
+@section Scripts
+{
+	<script src="\lib\jquery-validation\dist\jquery.validate.min.js"></script>
+	<script src="\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js"></script>
+}
 
 
