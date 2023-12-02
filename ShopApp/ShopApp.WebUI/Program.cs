@@ -12,6 +12,41 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Data Source=MUSTAFA;Initial Catalog=ShopDB;Integrated Security=SSPI;TrustServerCertificate=True;"));
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+	// password
+	options.Password.RequireDigit = true;
+	options.Password.RequireLowercase = true;
+	options.Password.RequireUppercase = true;
+	options.Password.RequiredLength = 6;
+	options.Password.RequireNonAlphanumeric = true;
+
+	// Lockout
+	options.Lockout.MaxFailedAccessAttempts = 5;
+	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+	options.Lockout.AllowedForNewUsers = true;
+
+	// options.User.AllowedUserNameCharacters = "";
+	options.User.RequireUniqueEmail = true;
+	options.SignIn.RequireConfirmedEmail = false;
+	options.SignIn.RequireConfirmedPhoneNumber	= false;
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.LoginPath = "/account/login";
+	options.LogoutPath = "/account/logout";
+	options.AccessDeniedPath = "/account/accessdenied";
+	options.SlidingExpiration = true; // if user does not do any action for ExpireTimeSpan, their cookie will be invalid so user needs to login again
+	options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // It resets the timer when a request is made within 60 mins
+	options.Cookie = new CookieBuilder
+	{
+		HttpOnly = true,
+		Name = ".ShopApp.Security.Cookie"
+	};
+});
+
+
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductRepository, EfCoreProductRepository>(); // DI IProductRepository represents EFCore.... If you want to use ex. MySQL then inject MySQLProductRepository
