@@ -16,9 +16,39 @@ namespace ShopApp.WebUI.Controllers
             _userManager = userManager;
 			_signInManager = signInManager;
         }
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl=null)
 		{
-			return View();
+			return View(new LoginModel()
+			{
+				ReturnUrl = returnUrl
+			});
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginModel loginModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(loginModel);
+			}
+
+			var user = await _userManager.FindByEmailAsync(loginModel.Email);
+			
+			if(user == null)
+			{
+				ModelState.AddModelError("", "No user exist with given credentials");
+				return View(loginModel);
+			}
+
+			var result = await _signInManager.PasswordSignInAsync(user, loginModel.Password, true, false);
+
+			if (result.Succeeded)
+			{
+				return Redirect(loginModel.ReturnUrl ?? "~/");
+			}
+
+			ModelState.AddModelError("", "Email or password is incorrect");
+			return View(loginModel);
 		}
 
 		public IActionResult Register()
