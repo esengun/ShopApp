@@ -1,12 +1,17 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using ShopApp.Business.Abstract;
 using ShopApp.Business.Concrete;
 using ShopApp.Data.Abstract;
 using ShopApp.Data.Concrete.EFCore;
+using ShopApp.WebUI.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Data Source=MUSTAFA;Initial Catalog=ShopDB;Integrated Security=SSPI;TrustServerCertificate=True;"));
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductRepository, EfCoreProductRepository>(); // DI IProductRepository represents EFCore.... If you want to use ex. MySQL then inject MySQLProductRepository
@@ -28,7 +33,7 @@ app.UseDeveloperExceptionPage();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();
