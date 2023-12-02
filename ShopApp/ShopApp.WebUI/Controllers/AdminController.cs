@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
@@ -7,6 +8,7 @@ using ShopApp.WebUI.Views.Shared;
 
 namespace ShopApp.WebUI.Controllers
 {
+	[Authorize] // To use admin controllers, user has to have privilege
 	public class AdminController : Controller
 	{
 		private IProductService _productService;
